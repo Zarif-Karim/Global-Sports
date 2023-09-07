@@ -1,10 +1,9 @@
-let test: string[];
+import Koa from 'koa';
+const app: Koa = new Koa();
+const port = 8000;
 
-test = [
-    'test 1',
-    'test 2',
-    '3'
-];
+app.use(async ctx => {
+	ctx.body = 'Hey Koa';
+});
 
-
-console.log(test);
+app.listen(port, ()=> console.log(`Listining on http://localhost:${port}`));
