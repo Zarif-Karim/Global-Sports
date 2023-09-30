@@ -2,20 +2,24 @@
   "name": "global-sports",
   "version": "1.0.0",
   "description": "Connecting players to Sports Facilities around the world",
-  "main": "app.js",
+  "main": "./src/app.ts",
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "prestart": "npm run build",
-    "start": "node dist/app.js",
-    "dev": "nodemon dist/app.js"
+    "prestartjs": "npm run build",
+    "startjs": "node ./dist/app.ts",
+    "dev": "nodemon ./src/app.ts",
+    "start": "ts-node ./src/app.ts"
   },
   "author": "Zarif Karim",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "nodemon": "^3.0.1",
+    "typescript": "^5.2.2",
+    "ts-node": "^10.9.1"
   },
   "dependencies": {
-    "koa": "^2.14.2"
+    "koa": "^2.14.2",
+    "koa-router": "^12.0.0"
   }
 }
