@@ -7,9 +7,9 @@
     "test": "jest",
     "build": "tsc",
     "prestart:js": "npm run build",
-    "start:js": "node ./dist/app.js",
-    "dev": "nodemon ./src/app.ts",
-    "start": "ts-node ./src/app.ts"
+    "start:js": "NODE_ENV=local node ./dist/app.js",
+    "dev": "NODE_ENV=local nodemon ./src/app.ts",
+    "start": "NODE_ENV=local ts-node ./src/app.ts"
   },
   "author": "Zarif Karim",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "nodemon": "^3.0.1"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "koa": "^2.14.2",
     "koa-router": "^12.0.0",
     "ts-node": "^10.9.1",
