@@ -9,7 +9,10 @@
     "prestart:js": "npm run build",
     "start:js": "NODE_ENV=local node ./dist/app.js",
     "dev": "NODE_ENV=local nodemon ./src/app.ts",
-    "start": "NODE_ENV=local ts-node ./src/app.ts"
+    "start": "NODE_ENV=local ts-node ./src/app.ts",
+    "docker:build": "./scripts/build-docker-image.sh",
+    "docker:start": "docker run -p 8080:8080 -it --rm global-sports:latest",
+    "docker:start:dev": "docker run -p 8080:8080 -it --rm -v $(pwd):/app global-sports:latest"
   },
   "author": "Zarif Karim",
   "license": "ISC",

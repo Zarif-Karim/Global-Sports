@@ -20,7 +20,7 @@ app.use(async (ctx, next) => {
 });
 
 router.get('/badminton', async ctx => {
-	ctx.body = 'Badminton Page!';
+	ctx.body = 'Badminton Page';
 });
 
 router.get('/', async ctx => {
