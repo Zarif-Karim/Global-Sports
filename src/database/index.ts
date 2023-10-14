@@ -1,22 +1,22 @@
 import Koa from "koa";
 import { createPool } from "slonik";
+import { getDBEnvVar } from "./utils";
 
 async function connectDB(app: Koa) {
   try {
     console.log("Establishing connection to DB");
-    const username = process.env.PGUSER ?? "postgres";
-    const password = process.env.PGPASSWORD ?? "example";
-    const host = process.env.PGHOST ?? "db";
-    const port = process.env.PGPORT ?? "5432";
-    const db = process.env.PGDATABASE ?? "postgres";
+    const username = getDBEnvVar('DB_USER'); 
+    const password = getDBEnvVar('DB_PASSWORD');
+    const host = getDBEnvVar('DB_HOST');
+    const port = getDBEnvVar('DB_PORT');
+    const db = getDBEnvVar('DB_DATABASE');
     const URL = `db://${username}:${password}@${host}:${port}/${db}`;
     console.log("DB_URL", URL);
     const pool = await createPool(URL);
     app.context.db = pool;
     console.log("Connected to DB");
   } catch (e) {
-    console.log(e);
-    throw new Error('Connecting to DB failed!');
+    throw new Error(e);
   }
 }
 

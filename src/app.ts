@@ -3,11 +3,11 @@ import Router from "koa-router";
 import dotenv from "dotenv";
 import connectDB from './database'
 
-dotenv.config({ path: `.env.${process.env.NODE_ENV ?? "local"}` });
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const app: Koa = new Koa();
 const router = new Router();
-const port = process.env.PORT ?? 8000;
+const port = process.env.PORT;
 
 connectDB(app);
 
