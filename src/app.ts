@@ -1,12 +1,15 @@
 import Koa from "koa";
 import Router from "koa-router";
 import dotenv from "dotenv";
+import connectDB from './database'
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV ?? "local"}` });
 
 const app: Koa = new Koa();
 const router = new Router();
-const port = process.env.PORT ?? 8080;
+const port = process.env.PORT ?? 8000;
+
+connectDB(app);
 
 app.use(async (ctx, next) => {
   const start = new Date() as any;
@@ -15,6 +18,9 @@ app.use(async (ctx, next) => {
   const ms = end - start;
   console.log("%s %s - %s", ctx.method, ctx.url, ms);
 });
+
+// db connection
+app.use(async (ctx, next) => {});
 
 import badmintonData from "./data/badminton";
 router.get("/badminton", async (ctx) => {
@@ -28,6 +34,7 @@ router.get("/", async (ctx) => {
 });
 
 app.use(router.routes()).use(router.allowedMethods());
+
 
 app.listen(port, () =>
   console.log(
