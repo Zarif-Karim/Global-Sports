@@ -19,8 +19,6 @@ app.use(async (ctx, next) => {
   console.log("%s %s - %s", ctx.method, ctx.url, ms);
 });
 
-// db connection
-app.use(async (ctx, next) => {});
 
 import badmintonData from "./data/badminton";
 router.get("/badminton", async (ctx) => {
