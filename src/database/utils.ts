@@ -36,6 +36,23 @@ export const getDBEnvVar = (
  * @returns query that can be passed to pool.query any anything that accepts a query object
  */
 export const getQuery = (filename: string) => {
-  const sqlString = fs.readFileSync(`${baseDir}/${filename}.sql`, "utf8");
-  return sql.unsafe([sqlString]);
+  const sqlStringTemplate = fs.readFileSync(`${baseDir}/${filename}.sql`, "utf8");
+  const query = populateEnvironmentVariables(sqlStringTemplate, process.env);
+  return sql.unsafe([query]);
 };
+
+/**
+ * @description replaces the ${envVar} in sql queries with values from env vars
+ * @param query a query string containing one or more ${envVar}
+ * @param env the environment to get variables from. process.env by default 
+ * @returns query populates with values from env vars
+ */
+function populateEnvironmentVariables(string: string, env: { [key: string]: string } = process.env): string {
+  return string.replace(/\$\{([^}]+)\}/g, (_, variableName) => {
+    const variableValue = env[variableName];
+    if (variableValue === undefined) {
+      throw new Error(`Environment variable "${variableName}" is not defined.`);
+    }
+    return variableValue;
+  });
+}
